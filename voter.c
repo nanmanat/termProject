@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int main()
+int voter_screen()
 {
-    
+    return 1;
 }

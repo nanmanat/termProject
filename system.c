@@ -47,12 +47,15 @@ int login()
                     break;
                 }
             }
+            
             if (strcmp(user, username) == 0)
             {
                 for (int i = 0; i < id; i++)
                 {
                     fgets(pass, MAX_LINE_LENGTH, pass_word);
                 }
+                pass[strlen(pass) - 1] = '\0';
+
                 if (strcmp(pass, password) == 0)
                 {
                     printf("Login successful!!\n");
