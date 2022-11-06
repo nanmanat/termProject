@@ -1,8 +1,13 @@
 #include <stdio.h>
-#include "function.c"
+#include "system.c"
+#include "admin.c"
+#include "voter.c"
 
 
 int main()
 {
-    findSum(1, 2);
+    // printf("%d\n", login());
+    int role = login();
+
+
 }
