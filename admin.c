@@ -1,14 +1,16 @@
 #include <stdio.h>
+#include <math.h>
 
 void create_poll();
 void poll_list();
+void percentage(int *percent, int size);
 
 int admin_screen()
 {
     int option;
     printf("Please select one of this option\n");
     printf("1) Create new poll\n");
-    printf("2) View poll report\n");
+    printf("2) View poll list\n\n");
 
     printf("Enter your option: ");
     scanf("%d", &option);
@@ -72,6 +74,10 @@ void poll_list()
     int number = 1;
     int poll_number;
 
+    printf("+==============================+\n");
+    printf("|    This is your poll list    |\n");
+    printf("+==============================+\n");
+
     while (fgets(poll, 100, poll_list))
     {
         printf("%d) %s", number, poll);
@@ -82,6 +88,7 @@ void poll_list()
 
     printf("Enter number : ");
     scanf("%d", &poll_number);
+    printf("\n");
 
     for (int i = 0; i < poll_number - 1; i++)
     {
@@ -90,13 +97,101 @@ void poll_list()
 
     poll[strlen(poll) - 1] = '\0';
 
+    printf("Name : %s\n\n", poll);
+
     choice_list = fopen(strcat(poll, ".txt"), "r");
 
     while (fgets(choice, 100, choice_list))
     {
-        printf("%d) %s", number, choice);
         number++;
     }
 
+    int percent[number - 1];
+
+    for (int i = 0; i < number - 1; i++)
+    {
+        percent[i] = 0;
+    }
+
+    rewind(choice_list);
+
+    int count = 0;
+
+    while (fgets(choice, 100, choice_list))
+    {
+        // printf("%lu", strlen(choice));
+        for(int i = 0; i < strlen(choice); i++)
+        {
+            if (choice[i] == ' ')
+            {
+                for (int j = i + 1; j < strlen(choice) - 1; j++)
+                {
+                    percent[count] += (choice[j] - '0') * pow(10, (strlen(choice) - 2) - j);
+                }
+                choice[i] = '\0';
+            }
+        }
+        printf("  %d) %s  ", count + 1, choice);
+
+
+        count++;
+    }
+
+    percentage(percent, number - 1);
+
+    printf("\n\n");
+
+    for (int i = 10; i > 0; i--)
+    {
+        if(i == 10)
+        {
+
+        }
+        else
+        {
+            printf("%d%%  |", i * 10);
+        }
+        
+        for (int j = 0; j < number - 1; j++)
+        {
+            if (percent[j] >= i)
+            {
+                printf("   ##");
+            }
+            else
+            {
+                printf("     ");
+            }
+        }
+        printf("   \n");
+    }
+    printf("      ");
+    for (int i = 0; i < number - 1; i++)
+    {
+        printf("-----");
+    }
+    printf("---\n");
+    printf("         ");
+
+    for (int i = 0; i < number - 1; i++)
+    {
+        printf("%d    ", i + 1);
+    }
+    printf("\n");
+
     fclose(poll_list);
+}
+
+void percentage(int *percent, int size)
+{
+    int sum = 0;
+    for(int i = 0; i < size; i++)
+    {
+        sum += percent[i];
+    }
+
+    for (int i = 0; i < size; i++)
+    {
+        percent[i] = (((percent[i] * 100) / sum) / 10) + 1;
+    }
 }
