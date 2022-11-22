@@ -58,10 +58,10 @@ int login()
 
                 if (strcmp(pass, password) == 0)
                 {
-                    printf("Login successful!!\n");
+                    printf("\n\nLogin successful!!\n");
                     fclose(user_name);
                     fclose(pass_word);
-                    return role - '0';
+                    return id;
                 }
                 else
                 {

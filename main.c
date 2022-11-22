@@ -7,9 +7,33 @@
 int main()
 {
     // printf("%d\n", login());
-    int role = login();
+    int id = login();
+    int role;
 
-    printf("%d\n", role);
+    FILE *username;
+
+    username = fopen("user.txt", "r");
+
+    char user[1000];
+
+    for (int i = 0; i < id; i++)
+    {
+        fgets(user, 1000, username);
+    }
+
+    for (int i = 0; i < 1000; i++)
+    {
+        user[i] = user[i];
+        if (user[i] == ' ')
+        {
+            role = user[i + 1] - 48;
+            user[i] = '\0';
+            break;
+        }
+    }
+    // int role = login();
+
+    // printf("%d\n", role);
 
     if (role == 1)
     {
@@ -17,7 +41,7 @@ int main()
     }
     else if (role == 0)
     {
-        return 1;
+        int num = voter_screen(id);
     }
 
     return 0;

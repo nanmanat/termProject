@@ -1,2 +1,4 @@
 admin 1
 mill 0
+alice 0
+bob 0
