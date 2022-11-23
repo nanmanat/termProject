@@ -14,8 +14,11 @@ int admin_screen()
     printf("2) View poll list\n");
     printf("3) Quit\n\n");
 
-    printf("Enter your option: ");
-    scanf("%d", &option);
+    do
+    {
+        printf("Enter your option: ");
+        scanf("%d", &option);
+    } while (option < 1 || option > 3);
 
     if (option == 1)
     {
@@ -146,11 +149,14 @@ void poll_list()
 
     rewind(poll_list);
 
-    number = 1;
+    do
+    {
+        printf("\nEnter number : ");
+        scanf("%d", &poll_number);
+        printf("\n");
+    } while (poll_number < 1 || poll_number > number - 1);
 
-    printf("\nEnter number : ");
-    scanf("%d", &poll_number);
-    printf("\n");
+    number = 1;
 
     for (int i = 0; i < poll_number; i++)
     {
@@ -209,7 +215,7 @@ void poll_list()
         {
             if(i == 10)
             {
-
+                printf("%d%% |", i * 10);
             }
             else
             {

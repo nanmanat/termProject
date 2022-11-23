@@ -16,7 +16,7 @@ int voter_screen(int id)
     {
         printf("Enter your choice: ");
         scanf("%d", &choice);
-    } while (choice != 1 && choice != 2);
+    } while (choice < 1 || choice > 2);
 
     if (choice == 1)
     {
@@ -51,7 +51,6 @@ void poll(int id)
 
     for (int i = 0; i < 1000; i++)
     {
-        user[i] = user[i];
         if (user[i] == ' ')
         {
             user[i] = '\0';
@@ -78,11 +77,13 @@ void poll(int id)
         number++;
     }
 
-    number = 1;
     char check_vote[10];
 
-    printf("Enter what poll do you want to vote: ");
-    scanf("%d", &poll_number);
+    do
+    {
+        printf("Enter what poll do you want to vote: ");
+        scanf("%d", &poll_number);
+    }while (poll_number < 1 || poll_number > number - 1);
 
     for (int i = 0; i < poll_number; i++)
     {
@@ -128,6 +129,8 @@ void voting(int poll_number, int id)
 
     poll[strlen(poll) - 1] = '\0';
 
+    printf("\n\n%s:\n", poll);
+
     choice_list = fopen(strcat(poll, ".txt"), "r");
 
     int count = 1;
@@ -152,8 +155,11 @@ void voting(int poll_number, int id)
     char score_str[100];
     int score;
 
-    printf("Enter number you what to vote: ");
-    scanf("%d", &select);
+    do
+    {
+        printf("\nEnter number you what to vote: ");
+        scanf("%d", &select);
+    }while (select < 1 || select > count);
 
     for (int i = 0; i < select; i++)
     {

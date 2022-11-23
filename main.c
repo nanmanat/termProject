@@ -6,7 +6,6 @@
 
 int main()
 {
-    // printf("%d\n", login());
     int id = login();
     int role;
 
@@ -23,7 +22,6 @@ int main()
 
     for (int i = 0; i < 1000; i++)
     {
-        user[i] = user[i];
         if (user[i] == ' ')
         {
             role = user[i + 1] - 48;
@@ -31,9 +29,6 @@ int main()
             break;
         }
     }
-    // int role = login();
-
-    // printf("%d\n", role);
 
     if (role == 1)
     {

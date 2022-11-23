@@ -18,16 +18,6 @@ int login()
     user_name = fopen("user.txt", "r");
     pass_word = fopen("password.txt", "r");
 
-    if(user_name == NULL)
-    {
-        return 1;
-    }
-
-    if(pass_word == NULL)
-    {
-        return 1;
-    }
-
     while(true)
     {
         printf("Username: ");
