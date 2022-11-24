@@ -44,11 +44,45 @@ void create_poll()
     FILE *user_profile;
 
     char name[100];
+    char poll_name[100];
     char choice[100];
     int choice_num;
+    int duplicate = 0;
+
+    poll_list = fopen("poll_list.txt", "r");
 
     printf("\n\nEnter name: ");
-    scanf("%s", name);
+    scanf(" %s", name);
+
+    while (fgets(poll_name, 100, poll_list))
+    {
+        poll_name[strlen(poll_name) - 1] = '\0';
+        if (strcmp(name, poll_name) == 0)
+        {
+            duplicate = 1;
+        }
+    }
+
+    while(duplicate == 1)
+    {
+        duplicate = 0;
+
+        printf("This poll name already exist.\n");
+        printf("\nEnter name: ");
+        scanf(" %s", name);
+
+        rewind(poll_list);
+
+        while (fgets(poll_name, 100, poll_list))
+        {
+            if(strcmp(name, poll_name) == 0)
+            {
+                duplicate = 1;
+            }
+        }
+    }
+
+    fclose(poll_list);
 
     poll_list = fopen("poll_list.txt", "a+");
     user_list = fopen("user.txt", "r");
@@ -86,7 +120,7 @@ void create_poll()
     for (int i = 0; i < choice_num; i++)
     {
         printf("Enter %d choice: ", i + 1);
-        scanf("%s", choice);
+        scanf(" %s", choice);
         fputs(strcat(choice, " 0"), poll_choice);
         fputs("\n", poll_choice);
     }
